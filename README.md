@@ -65,15 +65,15 @@ For ATIS
 
 | Models | Intent Detection Acc (%) | Slot F1 (%) |
 | ------ | ------------------------ | ----------- |
-| [Intent Gating & self-attention](https://www.aclweb.org/anthology/D18-1417) | 98.77 | 96.52 |
-| [BLSTM-CRF + ELMo](https://arxiv.org/abs/1811.05370) | 97.42 | 95.62 |
-| [Joint BERT](https://arxiv.org/pdf/1902.10909.pdf) |  97.5 | 96.1 |
+| [Intent Gating & self-attention, EMNLP 2018](https://www.aclweb.org/anthology/D18-1417) | 98.77 | 96.52 |
+| [BLSTM-CRF + ELMo, AAAI 2019](https://arxiv.org/abs/1811.05370) | 97.42 | 95.62 |
+| [Joint BERT, Arxiv 2019](https://arxiv.org/pdf/1902.10909.pdf) |  97.5 | 96.1 |
 | Ours | 98.69±0.11  | 95.71±0.19 |
 
 For SNIPS
 
 | Models | Intent Detection Acc (%) | Slot F1 (%) |
 | ------ | ------------------------ | ----------- |
-| [BLSTM-CRF + ELMo](https://arxiv.org/abs/1811.05370) | 99.29 | 93.90 |
-| [Joint BERT](https://arxiv.org/pdf/1902.10909.pdf) | 98.60 | 97.00 |
+| [BLSTM-CRF + ELMo, AAAI 2019](https://arxiv.org/abs/1811.05370) | 99.29 | 93.90 |
+| [Joint BERT, Arxiv 2019](https://arxiv.org/pdf/1902.10909.pdf) | 98.60 | 97.00 |
 | Ours | 98.67±0.18 | 95.64±0.10 |
