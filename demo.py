@@ -16,10 +16,10 @@ from data import ATISDataset, SNIPSDataset
 
 
 
-class BERTForIDSF(Block):
+class BERTForICSL(Block):
     def __init__(self, bert, num_intent_classes, num_slot_classes, dropout_prob,
                  prefix=None, params=None):
-        super(BERTForIDSF, self).__init__(prefix=prefix, params=params)
+        super(BERTForICSL, self).__init__(prefix=prefix, params=params)
         self.bert = bert
         with self.name_scope():
             self.intent_classifier = nn.HybridSequential()
@@ -300,7 +300,7 @@ def train(args):
     intent_pred_loss = gluon.loss.SoftmaxCELoss()
     slot_pred_loss = gluon.loss.SoftmaxCELoss(batch_axis=[0, 1])
 
-    net = BERTForIDSF(bert_model, num_intent_classes=len(intent_vocab),
+    net = BERTForICSL(bert_model, num_intent_classes=len(intent_vocab),
                       num_slot_classes=len(slot_vocab), dropout_prob=args.dropout_prob)
     net.slot_tagger.initialize(ctx=ctx, init=mx.init.Normal(0.02))
     net.intent_classifier.initialize(ctx=ctx, init=mx.init.Normal(0.02))
