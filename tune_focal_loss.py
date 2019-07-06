@@ -19,7 +19,7 @@ for alpha in [5, 10, 20, 50]:
             for seed in possible_seeds:
                 subprocess.call(['python3', 'demo.py', '--gpu', '0',
                                  '--dataset', dataset,
-                                 '--seed', seed,
+                                 '--seed', str(seed),
                                  '--use-focal',
                                  '--focal-alpha', '{}'.format(alpha),
                                  '--focal-gamma', '{}'.format(gamma),
