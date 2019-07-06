@@ -53,7 +53,7 @@ class BERTForICSL(Block):
         return intent_scores, slot_scores
 
 
-class IDSFSubwordTransform(object):
+class IDSLSubwordTransform(object):
     def __init__(self, subword_vocab, subword_tokenizer, slot_vocab, cased=False):
         """
 
@@ -64,7 +64,7 @@ class IDSFSubwordTransform(object):
         cased : bool
             Whether to convert all characters to lower
         """
-        super(IDSFSubwordTransform, self).__init__()
+        super(IDSLSubwordTransform, self).__init__()
         self._subword_vocab = subword_vocab
         self._subword_tokenizer = subword_tokenizer
         self._slot_vocab = slot_vocab
@@ -176,16 +176,21 @@ def evaluation(ctx, data_loader, net, intent_pred_loss, slot_pred_loss, slot_voc
 
     Parameters
     ----------
-    ctx
-    data_loader
-    net
-    intent_pred_loss
-    slot_pred_loss
-    slot_vocab
+    ctx : Context
+    data_loader : DataLoader
+    net : Block
+    intent_pred_loss : Loss
+    slot_pred_loss : Loss
+    slot_vocab : Vocab
 
     Returns
     -------
-
+    avg_intent_loss : float
+    avg_slot_loss : float
+    intent_acc : float
+    slot_f1 : float
+    pred_slots : list
+    gt_slots : list
     """
     nsample = 0
     nslot = 0
@@ -266,13 +271,13 @@ def train(args):
     print_sample(test_data, 1)
     print('-' * 80)
 
-    idsf_transform = IDSFSubwordTransform(subword_vocab=bert_vocab,
+    idsl_transform = IDSLSubwordTransform(subword_vocab=bert_vocab,
                                           subword_tokenizer=tokenizer,
                                           slot_vocab=slot_vocab,
                                           cased=args.cased)
-    train_data_bert = train_data.transform(idsf_transform, lazy=False)
-    dev_data_bert = dev_data.transform(idsf_transform, lazy=False)
-    test_data_bert = test_data.transform(idsf_transform, lazy=False)
+    train_data_bert = train_data.transform(idsl_transform, lazy=False)
+    dev_data_bert = dev_data.transform(idsl_transform, lazy=False)
+    test_data_bert = test_data.transform(idsl_transform, lazy=False)
     # Construct the DataLoader
     batchify_fn = nlp.data.batchify.Tuple(nlp.data.batchify.Pad(),    # Subword ID
                                           nlp.data.batchify.Pad(),    # Subword Mask
