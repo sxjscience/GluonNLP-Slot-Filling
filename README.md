@@ -51,7 +51,7 @@ For the ATIS dataset, use the following command to run the experiment:
 python demo.py --gpu 0 --dataset atis
 ```
 
-It produces the final slot labeling F1 = `95.98%` and intent classification accuracy = `98.54%`
+It produces the final slot labeling F1 = `95.83%` and intent classification accuracy = `98.66%`
 
 For the SNIPS dataset, use the following command to run the experiment:
 ```bash
@@ -68,7 +68,7 @@ For ATIS
 | [Intent Gating & self-attention, EMNLP 2018](https://www.aclweb.org/anthology/D18-1417) | 98.77 | 96.52 |
 | [BLSTM-CRF + ELMo, AAAI 2019](https://arxiv.org/abs/1811.05370) | 97.42 | 95.62 |
 | [Joint BERT, Arxiv 2019](https://arxiv.org/pdf/1902.10909.pdf) |  97.5 | 96.1 |
-| Ours | 98.69±0.11  | 95.71±0.19 |
+| Ours | 98.66±0.00  | 95.88±0.04 |
 
 For SNIPS
 
@@ -76,4 +76,4 @@ For SNIPS
 | ------ | ------------------------ | ----------- |
 | [BLSTM-CRF + ELMo, AAAI 2019](https://arxiv.org/abs/1811.05370) | 99.29 | 93.90 |
 | [Joint BERT, Arxiv 2019](https://arxiv.org/pdf/1902.10909.pdf) | 98.60 | 97.00 |
-| Ours | 98.67±0.18 | 95.64±0.10 |
+| Ours | 98.81±0.13 | 95.94±0.10 |

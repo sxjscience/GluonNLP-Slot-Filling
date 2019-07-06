@@ -141,7 +141,7 @@ def parse_args():
                             help='Optimization algorithm to use')
     arg_parser.add_argument('--learning-rate', type=float, default=5e-5,
                             help='Learning rate for optimization')
-    arg_parser.add_argument('--wd', type=float, default=0.01,
+    arg_parser.add_argument('--wd', type=float, default=0.0,
                             help='Weight decay')
     arg_parser.add_argument('--warmup-ratio', type=float, default=0.1,
                             help='Warmup ratio for learning rate scheduling')
