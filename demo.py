@@ -9,9 +9,8 @@ import random
 from mxnet import gluon
 import gluonnlp as nlp
 from gluonnlp.data import BERTTokenizer, ATISDataset, SNIPSDataset
-
 from seqeval.metrics import f1_score as ner_f1_score
-
+from loss import SoftmaxFocalLoss
 
 
 
@@ -147,6 +146,12 @@ def parse_args():
                             help='Warmup ratio for learning rate scheduling')
     arg_parser.add_argument('--slot-loss-mult', type=float, default=1.0,
                             help='Multiplier for the slot loss.')
+    arg_parser.add_argument('--use-focal', action='store_true',
+                            help='Whether to use the focal softmax loss')
+    arg_parser.add_argument('--focal-alpha', type=float, default=20,
+                            help='The alpha parameter used in focal softmax loss')
+    arg_parser.add_argument('--focal-gamma', type=float, default=2,
+                            help='The gamma parameter used in focal softmax loss')
     arg_parser.add_argument('--save-dir', type=str, default='saved_model')
     arg_parser.add_argument('--gpu', type=int, default=None,
                             help='Number (index) of GPU to run on, e.g. 0. If not specified, uses CPU.')
@@ -297,7 +302,11 @@ def train(args):
 
     # Build the network and loss functions
     intent_pred_loss = gluon.loss.SoftmaxCELoss()
-    slot_pred_loss = gluon.loss.SoftmaxCELoss(batch_axis=[0, 1])
+    if args.use_focal:
+        slot_pred_loss = SoftmaxFocalLoss(batch_axis=[0, 1],
+                                          alpha=args.focal_alpha, gamma=args.focal_gamma)
+    else:
+        slot_pred_loss = gluon.loss.SoftmaxCELoss(batch_axis=[0, 1])
 
     net = BERTForICSL(bert_model, num_intent_classes=len(intent_vocab),
                       num_slot_classes=len(slot_vocab), dropout_prob=args.dropout_prob)
